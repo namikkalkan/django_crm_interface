@@ -1,0 +1,29 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="card text-center">
+  <div class="card-header">
+    Order Update
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Update order of "{{item}}" for {{order_c}}?</h5>
+      <br>
+      <br>
+
+    <form action=""  method="POST">
+        {% csrf_token %}
+        {{form}}
+        <br>
+        <input class = 'btn btn-sm btn-info' type="submit" name="Submit">
+    </form>
+
+  </div>
+  <div class="card-footer text-muted">
+      {{order.date_created}}
+  </div>
+</div>
+
+
+{% endblock %}

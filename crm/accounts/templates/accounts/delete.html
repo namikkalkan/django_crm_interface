@@ -1,0 +1,28 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="card">
+  <div class="card-header">
+    Order Delete Page
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><p> Do you want to delete "{{item}}" for {{order_c}}?</p></h5>
+
+    <form method = "POST">
+        {% csrf_token %}
+        {{form}}
+        <p></p>
+        <input class = "btn btn-sm btn-danger" type='submit' name="Confirm" >
+        <p></p>
+        <a class = "btn btn-sm btn-info" href="{% url 'home' %}">Cancel</a>
+    </form>
+
+  </div>
+</div>
+
+
+
+{% endblock %}

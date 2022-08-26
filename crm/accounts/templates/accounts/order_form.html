@@ -1,0 +1,35 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="card text-center">
+  <div class="card-header">
+    Order Place
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Place order for {{customer.name}} of ...</h5>
+      <br>
+      <br>
+
+    <form action=""  method="POST">
+        {% csrf_token %}
+        {{formset.management_form}}
+        {%for i in formset %}
+            {{i}}
+            <hr>
+        {% endfor %}
+
+
+        <br>
+        <input class = 'btn btn-sm btn-info' type="submit" name="Submit">
+    </form>
+
+  </div>
+  <div class="card-footer text-muted">
+      {{order.date_created}}
+  </div>
+</div>
+
+
+{% endblock %}

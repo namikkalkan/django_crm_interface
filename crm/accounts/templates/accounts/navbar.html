@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<style>
+  .user_name{
+    font-size: 18px;
+    color: #fff;
+    margin-right: 20px;
+  }
+</style>
+
+
+<link rel="stylesheet", type="text/css" href=" {% static '/css/main.css' %}">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img src="{% static 'images/logos.png' %}">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="{% url 'home' %}">Dashboard </a>
+      <a class="nav-item nav-link" href="{% url 'products' %}">Products</a>
+    </div>
+  </div>
+  <span class="user_name">Hello, {{request.user}}</span>
+  <span ><a  class="user_name" href="{% url 'logout' %}">Logout</a></span>
+</nav>
