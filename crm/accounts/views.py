@@ -89,6 +89,20 @@ def customer(request, pk):
 
     return render(request, 'accounts/customer.html', {'context': context})
 
+@login_required(login_url='login')
+def updateCustomer(request, pk):
+    customer = Customer.objects.get(id=pk)
+    form = OrderForm(instance=customer)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form': form,'customer':customer}
+    return render(request, 'accounts/update_customer.html', context)
+
 
 @login_required(login_url='login')
 def createOrder(request, pk):

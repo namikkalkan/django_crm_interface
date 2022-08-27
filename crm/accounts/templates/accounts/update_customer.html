@@ -1,0 +1,31 @@
+
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="card text-center">
+  <div class="card-header">
+
+  </div>
+  <div class="card-body">
+
+
+    <form action=""  method="POST">
+        {% csrf_token %}
+        {{customer.name}}<br><hr>
+
+        {{customer.phone}}<br><hr>
+        {{customer.email}}<hr>
+        <br>
+        <input class = 'btn btn-sm btn-info' type="submit" name="Submit">
+    </form>
+
+  </div>
+  <div class="card-footer text-muted">
+
+  </div>
+</div>
+
+
+{% endblock %}
