@@ -92,10 +92,10 @@ def customer(request, pk):
 @login_required(login_url='login')
 def updateCustomer(request, pk):
     customer = Customer.objects.get(id=pk)
-    form = OrderForm(instance=customer)
+    form = CustomerForm(instance=customer)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST, instance=customer)
+        form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
             return redirect('/')

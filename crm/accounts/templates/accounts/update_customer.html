@@ -13,10 +13,11 @@
 
     <form action=""  method="POST">
         {% csrf_token %}
-        {{customer.name}}<br><hr>
-
-        {{customer.phone}}<br><hr>
-        {{customer.email}}<hr>
+        {% for i in form %}
+            {{i.label}}
+            {{i}} <br><hr>
+        {% endfor %}
+        <br>
         <br>
         <input class = 'btn btn-sm btn-info' type="submit" name="Submit">
     </form>
