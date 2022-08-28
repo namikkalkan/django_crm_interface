@@ -64,10 +64,10 @@ def userPage(request):
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()
     pending = orders.filter(status='Pending').count()
-
+    ofdelivery = orders.filter(status='Out for delivery').count()
     print('ORDERS:', orders)
 
-    context = {'orders': orders, 'total_orders': total_orders,
+    context = {'orders': orders, 'total_orders': total_orders,'ofdelivery':ofdelivery,
                'delivered': delivered, 'pending': pending}
 
     return render(request, 'accounts/user.html', {'context':context})
@@ -88,8 +88,8 @@ def home(request):
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()
     pending = orders.filter(status='Pending').count()
-
-    context = {'orders': orders, 'orders_reversed': orders_reversed, 'customers': customers,
+    ofdelivery = orders.filter(status='Out for delivery').count()
+    context = {'orders': orders, 'orders_reversed': orders_reversed, 'customers': customers,'ofdelivery':ofdelivery,
                'total_customer': total_customer, 'total_orders': total_orders,
                'delivered': delivered, 'pending': pending}
     return render(request, 'accounts/dashboard.html', {'context': context})
@@ -205,7 +205,7 @@ def deleteCustomer(request, ppk):
         return redirect('/')
 
     context = {"customer": customer}
-    return render(request, 'accounts/delete_customer.html', context)
+    return render(request, 'accounts/delete_customer.html', {'context':context})
 
 @login_required(login_url='login')
 def createCustomer(request):
