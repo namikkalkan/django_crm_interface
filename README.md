@@ -2,7 +2,7 @@
 ##Designed for sales, customer and product tracking
 ###This project can be adjusted by user permission in organization to access desired data and page.
 
-##Key notes:
+###Key notes:
 
 ####There is a group of items in db. And there are relations between product-order and order-customer and customer/employee-user
 
