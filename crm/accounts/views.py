@@ -89,6 +89,20 @@ def customer(request, pk):
 
     return render(request, 'accounts/customer.html', {'context': context})
 
+@login_required(login_url='login')
+def updateCustomer(request, pk):
+    customer = Customer.objects.get(id=pk)
+    form = CustomerForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form': form,'customer':customer}
+    return render(request, 'accounts/update_customer.html', context)
+
 
 @login_required(login_url='login')
 def createOrder(request, pk):
@@ -136,6 +150,17 @@ def deleteOrder(request, ppk):
     context = {"item": order, "order_c": order.customer}
     return render(request, 'accounts/delete.html', context)
 
+
+@login_required(login_url='login')
+def deleteCustomer(request, ppk):
+    customer = Customer.objects.get(id=ppk)
+
+    if request.method == 'POST':
+        customer.delete()
+        return redirect('/')
+
+    context = {"customer": customer}
+    return render(request, 'accounts/customer_delete.html', context)
 
 @login_required(login_url='login')
 def createCustomer(request):
