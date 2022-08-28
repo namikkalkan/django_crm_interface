@@ -23,9 +23,12 @@ def allowed_user(allowed_roles=[]):
 
             if group in allowed_roles:
                 return view_f(request, *args, **kwargs)
-            else:
+            elif group =='employee':
                 messages.warning(request, 'You are not allowed for it, please ask for admin')
                 return redirect('home')
+            else:
+                messages.warning(request, 'You are not allowed for it, please ask for admin')
+                return redirect('user_page')
 
         return wrapper
 

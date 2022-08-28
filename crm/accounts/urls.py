@@ -15,4 +15,6 @@ urlpatterns = [
     path('delete_order/<str:ppk>/', views.deleteOrder, name="delete_order"),
     path('create_customer/', views.createCustomer, name="create_customer"),
     path('delete_customer/<str:ppk>/', views.deleteCustomer, name="delete_customer"),
+    path('account/', views.accountSettings, name="account_settings"),
+
                 ]
