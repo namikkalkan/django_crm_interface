@@ -4,7 +4,7 @@
 
 ### Key notes:
 
-#### There is a group of items in db. And there are relations between product-order and order-customer and customer/employee-user
+#### There is a group of items in db. There are relations between product-order and order-customer and customer/employee-user
 
 #### There are admin, employee and customer groups for users.Each group have planned access on system.
 
