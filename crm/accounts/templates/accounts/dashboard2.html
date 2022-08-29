@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Customer Page</title>
+    <title>Dashboard</title>
 
 
     <!-- Custom fonts for this template-->
@@ -64,21 +64,20 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'create_order' context.customer.id%}">
+                <a class="nav-link" href="">
                     <i class="fa-solid fa-cart-plus"></i>
                     <span>Create order</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'update_customer' context.customer.id %}">
+                <a class="nav-link" href="{% url 'create_customer'%}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Create Customer</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Update customer</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'delete_customer' context.customer.id %}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Delete customer</span></a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -133,7 +132,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
-                        <h1 class="h2 mb-0 text-gray-800">Page of customer '{{context.customer.name}}'</h1>
+                        <h1 class="h2 mb-0 text-gray-800">Dashboard</h1>
 
                     </div>
 
@@ -148,7 +147,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total Orders</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{context.total_order}}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{context.total_orders}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -227,16 +226,16 @@
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
+                        <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                         <h6 class="m-0 font-weight-bold text-primary">Recent Orders</h6>
-                                        <a class="btn btn-primary  btn-sm " href="{% url 'create_order' context.customer.id%}">Add order</a>
+                                        <a class="btn btn-primary  btn-sm " href="{% url 'create_customer' %}">Add order</a>
 
                                     </div>
-                                    <div class="card card-body" style="height: 600px;overflow: scroll;">
+                                    <div class="card card-body" style="overflow-y:auto; height: 500px;overflow: scroll;">
 
                                                 <table class="table table-sm">
                                                     <tr>
@@ -263,9 +262,44 @@
                                     </div>
 
 
+                                <!-- Card Body -->
 
                             </div>
+                        </div>
 
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Customers</h6>
+                                    <a class="btn btn-primary  btn-sm " href="{% url 'create_customer' %}">Create Customer</a>
+
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card card-body" style="overflow-y:auto; height: 500px;overflow: scroll;">
+
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <th></th>
+                                            <th>Customer</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                            </tr>
+                                            {% for i in context.customers %}
+                                            <tr>
+                                                    <td><a class = "btn btn-sm btn-info" href="{% url 'customer' i.id %}">View</a></td>
+                                                    <td>{{ i.name }}</td>
+                                                    <td>{{ i.phone }}</td>
+
+                                            </tr>
+                                            {% endfor %}
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -277,6 +311,10 @@
 
                 <!-- /.container-fluid -->
 
+
+            <!-- End of Footer -->
+
+        </div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -288,14 +326,10 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
 
-    </div>
-</div>    <!-- Bootstrap core JavaScript-->
+
+
+    <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -314,85 +348,4 @@
 
 </body>
 
-
-    <!--
-	<br>
-
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Customer:</h5>
-			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'update_customer' context.customer.id%}">Update Customer</a>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_order' context.customer.id%}">Place Order</a><br>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'delete_customer' context.customer.id%}">Delete Customer</a>
-
-		</div>
-	</div>
-
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Contact Information</h5>
-			<hr>
-			<p>Email: {{context.customer.email}}</p>
-			<p>Phone: {{context.customer.phone}}</p>
-		</div>
-	</div>
-
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Total Orders</h5>
-			<hr>
-			<h1 style="text-align: center;padding: 10px">{{context.total_order}}</h1>
-		</div>
-	</div>
-</div>
-
-
-<br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="get">
-			{{context.mfilter.form}}
-
-		    <button class="btn btn-primary" type="submit">Search</button>
-		  </form>
-		</div>
-	</div>
-
-</div>
-<br>
-
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<table class="table table-sm">
-				<tr>
-					<th>Product</th>
-					<th>Category</th>
-					<th>Date Ordered</th>
-					<th>Status</th>
-					<th>Update</th>
-					<th>Remove</th>
-				</tr>
-
-				{% for order in context.orders %}
-
-				<tr>
-					<td>{{order.product}}</td>
-					<td>{{order.product.category}}</td>
-					<td>{{order.date_created}}</td>
-					<td>{{order.status}}</td>
-					<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
-
-					<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
-				</tr>
-				{% endfor %}
-
-			</table>
-		</div>
-	</div>
-</div>
-
--->
+</html>
