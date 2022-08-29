@@ -1,38 +1,51 @@
 {% extends 'accounts/main.html' %}
-{% load static %}
+
 {% block content %}
 
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<br>
+<div class="row">
+    <div class="col-md-3">
+		<div class="card card-body">
+			<a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Back to Profile</a>
+			<hr>
+			<h3 style="text-align: center">Create Customer</h3>
+			<hr>
+			<img class="profile-pic" src="{{request.user.customer.profile_pic.url}}" >
+
+		</div>
+	</div>
+    <div class="col-md-6">
+		<div class="card card-body">
 
 
+            <form action=""  method="POST">
+                {% csrf_token %}
 
-<div class="card text-center">
-  <div class="card-header">
-    Create Customer
-  </div>
-  <div class="card-body">
+                {%for i in form %}
+                    {{i.name}}
+                    {{i}}
+                    <br>
+                    <hr>
 
-      <br>
-      <br>
-    <form action=""  method="POST">
-        {% csrf_token %}
+                {% endfor %}
 
-        {%for i in form %}
-            {{i.name}}
-            {{i}}
-            <br>
-            <hr>
+                <br>
+                <input class = 'btn btn-sm btn-info' type="submit" name="Submit">
+            </form>
+        </div>
+    </div>
 
-        {% endfor %}
-
-        <br>
-        <input class = 'btn btn-sm btn-info' type="submit" name="Submit">
-    </form>
-
-  </div>
-  <div class="card-footer text-muted">
-  </div>
+    </div>
 </div>
-
 
 
 

@@ -86,13 +86,15 @@ def home(request):
     customers = Customer.objects.all()
     total_customer = customers.count()
     total_orders = orders.count()
+    mfilter = OrderFilter(request.GET, queryset=orders)
+    orders = mfilter.qs
     delivered = orders.filter(status='Delivered').count()
     pending = orders.filter(status='Pending').count()
     ofdelivery = orders.filter(status='Out for delivery').count()
     context = {'orders': orders, 'orders_reversed': orders_reversed, 'customers': customers,'ofdelivery':ofdelivery,
                'total_customer': total_customer, 'total_orders': total_orders,
-               'delivered': delivered, 'pending': pending}
-    return render(request, 'accounts/dashboard.html', {'context': context})
+               'delivered': delivered, 'pending': pending,'mfilter': mfilter}
+    return render(request, 'accounts/dashboard2.html', {'context': context})
 
 
 @login_required(login_url='login')
@@ -107,12 +109,14 @@ def customer(request, pk):
     customer = Customer.objects.get(id=pk)
     orders = customer.order_set.all()
     total_order = orders.count()
-
+    orders_reversed = orders[::-1]
     mfilter = OrderFilter(request.GET, queryset=orders)
     orders = mfilter.qs
-
-    context = {'customer': customer, 'orders': orders,
-               'total_order': total_order, 'mfilter': mfilter}
+    delivered = orders.filter(status='Delivered').count()
+    pending = orders.filter(status='Pending').count()
+    ofdelivery = orders.filter(status='Out for delivery').count()
+    context = {'customer': customer, 'orders': orders,'ofdelivery':ofdelivery,'pending':pending,'delivered':delivered,
+               'total_order': total_order, 'mfilter': mfilter,'orders_reversed': orders_reversed}
 
     return render(request, 'accounts/customer.html', {'context': context})
 

@@ -20,7 +20,7 @@ class Tag (models.Model):
 
 class Product (models.Model):
     CATEGORY = (('Luxury', 'Luxury'),
-                ('Basic', 'Basic')
+                ('Basic', 'Basic'),
               )
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField(null=True)
